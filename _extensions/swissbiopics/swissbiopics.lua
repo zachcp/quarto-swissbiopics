@@ -1,5 +1,3 @@
-local open = io.open
-
 
 function readAll(file)
   local f = assert(io.open(file, "r"))
@@ -7,6 +5,7 @@ function readAll(file)
   f:close()
   return content
 end
+
 
 function getlocaldir()
   local fullpath = debug.getinfo(1,"S").source:sub(2)
@@ -21,8 +20,34 @@ function getlocaldir()
 end
 
 
+
+---Format string like in bash or python,
+---e.g. f('Hello ${one}', {one = 'world'})
+---@param s string The string to format
+---@param kwargs {[string]: string} A table with key-value replacemen pairs
+---@return string
+local function f(s, kwargs)
+  return (s:gsub('($%b{})', function(w) return kwargs[w:sub(3, -2)] or w end))
+end
+
+
+
+---@param viewerFunctionString string
+---@return string
+local function wrapInlineDivorig(viewerFunctionString)
+  return "<div> ${contenct} </div>"
+end
+
+
 return {
   ['sbp'] = function(args, kwargs, meta) 
+
+    quarto.doc.add_html_dependency({
+      name = 'swissbiopics',
+      scripts = {'resources/js/cellzone.js', 'resources/js/zone.js', },
+      stylesheets = {'resources/css/biopicszone.css'}
+    })
+
     quarto.log.output("=== Handling SBP ===")
     local user = pandoc.utils.stringify(args[1])
     quarto.log.output(user)
@@ -31,25 +56,10 @@ return {
     local local_svg = localdir .. "resources/images/Animal_cells.svg"
     quarto.log.output(local_svg)
     local svg_string = readAll(local_svg)
-
-    -- quarto.log.output()
-    -- local content = file:read "*a" -- *a or *all reads the whole file
-    -- quarto.log.output(content)
-    -- file:close()
-
-    -- local svg_file = read_file(local_svg)
-    -- local svg_string = pandoc.utils.stringify(svg_file)
-    -- quarto.log.output(svg_file)
-    -- quarto.log.output(svg_string)
-    -- local svg_string = pandoc.utils.stringify(svg_file)
-    -- quarto.log.output(svg_string)
-  
-  
-    -- return pandoc.Str("Hello from Shorty!")
-    -- return pandoc.Str(svg_string)
-    -- return pandoc.Str(svg_string)
+    svg_string2 = pandoc.Str(svg_string)
+    local wrapped = f("<div> ${content} </div>", {content=pandoc.utils.stringify(svg_string)})
     return pandoc.RawBlock(
-      'html', svg_string)
+      'html', wrapped)
 
   end
 }
