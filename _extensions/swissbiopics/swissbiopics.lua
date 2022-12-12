@@ -1,21 +1,4 @@
-
-function readAll(file)
-  local f = assert(io.open(file, "r"))
-  local content = f:read("*all")
-  f:close()
-  return content
-end
-
-
-function getlocaldir()
-  local fullpath = debug.getinfo(1,"S").source:sub(2)
-  fullpath = io.popen("realpath '"..fullpath.."'", 'r'):read('a')
-  fullpath = fullpath:gsub('[\n\r]*$','')
-  local dirname, filename = fullpath:match('^(.*/)([^/]-)$')
-  return dirname
-end
-
-
+-- Helper Functions for files/strings -----------------------------------
 
 ---Format string like in bash or python,
 ---e.g. f('Hello ${one}', {one = 'world'})
@@ -27,33 +10,57 @@ local function f(s, kwargs)
 end
 
 
-
----@param viewerFunctionString string
----@return string
-local function wrapInlineDivorig(viewerFunctionString)
-  return "<div> ${contenct} </div>"
+function readAll(file)
+  local f = assert(io.open(file, "r"))
+  local content = f:read("*all")
+  f:close()
+  return content
 end
 
+
+--- find local SVG and return as a string
+function getfilecontent(filename)
+
+  local fullpath = debug.getinfo(1,"S").source:sub(2)
+  fullpath = io.popen("realpath '"..fullpath.."'", 'r'):read('a')
+  fullpath = fullpath:gsub('[\n\r]*$','')
+
+  local localdir, fname = fullpath:match('^(.*/)([^/]-)$')
+  local local_svg = f(
+    "${localdir}resources/images/${fname}.svg", 
+    {localdir=localdir, fname=pandoc.utils.stringify(filename)})
+
+  -- quarto.log.output(local_svg)
+  local svg_string = readAll(pandoc.utils.stringify(local_svg))
+  return svg_string
+end
+
+
+-- Core Function -----------------------------------
 
 return {
   ['sbp'] = function(args, kwargs, meta) 
 
     quarto.doc.add_html_dependency({
       name = 'swissbiopics',
-      scripts = {'resources/js/small-zone.js'},
+      scripts = {'resources/js/small-zone.js' },
       stylesheets = {'resources/css/biopicszone.css'}
     })
 
+    -- todo check valid filename
+    local filename = args[1][1]
+
     quarto.log.output("=== Handling SBP ===")
-    local user = pandoc.utils.stringify(args[1])
-    quarto.log.output(user)
-    local localdir = getlocaldir()
-    quarto.log.output(localdir)
-    local local_svg = localdir .. "resources/images/Animal_cells.svg"
-    quarto.log.output(local_svg)
-    local svg_string = readAll(local_svg)
-    svg_string2 = pandoc.Str(svg_string)
-    local wrapped = f("<div class=\"sbp\" data-name=\"Animal_cells.svg\"> <div id=\"cell\"> ${content} </div></div>", {content=pandoc.utils.stringify(svg_string)})
+    quarto.log.output(filename)
+  
+    
+    local svg_content = getfilecontent(filename)
+    quarto.log.output(string.len(svg_content))
+
+    local wrapped = f(
+      "<div class=\"sbp\" data-name=\"${filename}.svg\"> <div id=\"cell\"> ${content} </div></div>", 
+      {filename=pandoc.utils.stringify(filename), content=pandoc.utils.stringify(svg_content)})
+
     return pandoc.RawBlock(
       'html', wrapped)
 
