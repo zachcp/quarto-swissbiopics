@@ -11,13 +11,10 @@ This filter adds formatting to heading text.
 ## SBP
 
 
-### Before
 
 {{< sbp this >}}
 
 
-
-### After
 
 
 

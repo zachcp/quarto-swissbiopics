@@ -9,13 +9,9 @@ end
 
 function getlocaldir()
   local fullpath = debug.getinfo(1,"S").source:sub(2)
-  -- quarto.log.output(fullpath)
   fullpath = io.popen("realpath '"..fullpath.."'", 'r'):read('a')
-  -- quarto.log.output(fullpath)
   fullpath = fullpath:gsub('[\n\r]*$','')
-  -- quarto.log.output(fullpath)
   local dirname, filename = fullpath:match('^(.*/)([^/]-)$')
-  -- quarto.log.output(dirname)
   return dirname
 end
 
@@ -44,7 +40,7 @@ return {
 
     quarto.doc.add_html_dependency({
       name = 'swissbiopics',
-      scripts = {'resources/js/cellzone.js', 'resources/js/zone.js', },
+      scripts = {'resources/js/small-zone.js'},
       stylesheets = {'resources/css/biopicszone.css'}
     })
 
@@ -57,7 +53,7 @@ return {
     quarto.log.output(local_svg)
     local svg_string = readAll(local_svg)
     svg_string2 = pandoc.Str(svg_string)
-    local wrapped = f("<div> ${content} </div>", {content=pandoc.utils.stringify(svg_string)})
+    local wrapped = f("<div class=\"sbp\" data-name=\"Animal_cells.svg\"> <div id=\"cell\"> ${content} </div></div>", {content=pandoc.utils.stringify(svg_string)})
     return pandoc.RawBlock(
       'html', wrapped)
 
