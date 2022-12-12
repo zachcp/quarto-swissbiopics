@@ -1,13 +1,11 @@
 # Swissbiopics Extension For Quarto
 
-_TODO_: Add a short description of your extension.
+Embed [Swissbiopics](https://www.swissbiopics.org/) in Quarto documents.
 
 ## Installing
 
-_TODO_: Replace the `<github-organization>` with your GitHub organization.
-
 ```bash
-quarto add <github-organization>/swissbiopics
+quarto add zachcp/swissbiopics
 ```
 
 This will install the extension under the `_extensions` subdirectory.
@@ -15,7 +13,19 @@ If you're using version control, you will want to check in this directory.
 
 ## Using
 
-_TODO_: Describe how to use your extension.
+You can use the `{{< sbp >}}` shortcode to add a SwissBioPics image to your quarto document. You will need to specify the name of one of the images which can be found in `_extensions/swissbiopics/resources/images`. For example:
+
+```qmd
+{{<  sbp Animal_cells >}}
+
+{{<  sbp Egg_cell >}}
+
+{{<  sbp Trypanosoma >}}
+```
+
+
+
+
 
 ## Example
 
