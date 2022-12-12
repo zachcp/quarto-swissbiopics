@@ -12,9 +12,13 @@ This filter adds formatting to heading text.
 
 
 
-{{< sbp this >}}
+{{< sbp Animal_cells highlight=cytosol >}}
 
 
+
+## SBP Full
+
+<!-- {{< sbp-full Animal_cells >}} -->
 
 
 

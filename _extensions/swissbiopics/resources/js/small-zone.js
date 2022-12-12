@@ -36,7 +36,7 @@ function initPage() {
     const holder         = document.querySelector( ".sbp" ); // holder/target: div.sbp
 
     // luse in global context
-    svg = cell.querySelector( "#cell svg" );
+    svg = document.querySelector( "#cell svg" );
     // const svgname = getCellName( svg, iname );
     const title0  = document.querySelector( "h1.ctitle" );
     const title   = title0 ? title0 : document.createElement( "h1" ); // if not already there create h1 title
