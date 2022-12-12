@@ -28,7 +28,7 @@ function getfilecontent(filename)
   local localdir, fname = fullpath:match('^(.*/)([^/]-)$')
   local local_svg = f(
     "${localdir}resources/images/${fname}.svg", 
-    {localdir=localdir, fname=pandoc.utils.stringify(filename)})
+    {localdir=localdir, fname=filename})
 
   -- quarto.log.output(local_svg)
   local svg_string = readAll(pandoc.utils.stringify(local_svg))
@@ -49,17 +49,18 @@ return {
 
     -- todo check valid filename
     local filename = args[1][1]
+    filename = pandoc.utils.stringify(filename)
 
     quarto.log.output("=== Handling SBP ===")
     quarto.log.output(filename)
-  
+    
     
     local svg_content = getfilecontent(filename)
-    quarto.log.output(string.len(svg_content))
+    -- quarto.log.output(string.len(svg_content))
 
     local wrapped = f(
       "<div class=\"sbp\" data-name=\"${filename}.svg\"> <div id=\"cell\"> ${content} </div></div>", 
-      {filename=pandoc.utils.stringify(filename), content=pandoc.utils.stringify(svg_content)})
+      {filename=filename, content=svg_content})
 
     return pandoc.RawBlock(
       'html', wrapped)
