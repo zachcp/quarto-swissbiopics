@@ -18,11 +18,13 @@ const hiddenSLs      = [ 'SL0198', 'SL0457', 'SL0458' ]; // list of sls hidden w
 // L73
 const holder = document.querySelector( ".sbp" ); // holder/target: div.sbp
 const iname  = "Animal_cells.svg"
+var svg;
 
 function getCellName( svg, iname ) {
     const svgname_h = svg.querySelector( ":scope > text[property=name]" );// fetch img name from svg
     return svgname_h ? svgname_h.textContent : ( iname ? iname.replace( /\.svg$/, "" ).replace( /_/g, " " ) : "" );
 }
+
 
 
 
@@ -33,7 +35,8 @@ function initPage() {
 
     const holder         = document.querySelector( ".sbp" ); // holder/target: div.sbp
 
-    const svg = cell.querySelector( "#cell svg" );
+    // luse in global context
+    svg = cell.querySelector( "#cell svg" );
     // const svgname = getCellName( svg, iname );
     const title0  = document.querySelector( "h1.ctitle" );
     const title   = title0 ? title0 : document.createElement( "h1" ); // if not already there create h1 title
@@ -322,4 +325,22 @@ function selectLocation( holder, slid ) {
         pop.classList.remove( "hidden" );
         positionBy( pop, ( lowest  ? lowest : g ) );
     }
+}
+
+
+function positionBy( target, by, do_center ) {
+    const by_drect      = by.getBoundingClientRect(); // caution: by elem should be visible! // n.b. getBoundingClientRect coordinates refer to visible viewport = it does not consider x,y offsets; whereas css (absolute) positioning consider those.
+    const target_width  = target.clientWidth; // caution: target elem should be visible!
+    const win_width     = document.documentElement.clientWidth * 0.97 - 10;
+    const win_height    = document.documentElement.clientHeight;
+    const cell_drect    = document.querySelector( "#cell" ).getBoundingClientRect(); // TODO pass cell as function param!
+    const cell_right    = cell_drect.right + 10;
+    const cell_bottom   = cell_drect.bottom + 10;
+    target.style.left   = by_drect.x      + window.pageXOffset +"px"; // set target left based on by
+    target.style.top    = by_drect.bottom + window.pageYOffset +"px"; // set target bottom based on by
+    if ( do_center ) target.style.left = ( cell_drect.width - target_width ) / 2.0 + "px";
+    if ( by_drect.x + target_width > cell_right ) target.style.left = ( window.pageXOffset + cell_right - target_width )+"px"; // too right
+    if ( target.style.left.slice(0,-2) < 4 ) target.style.left = "4px"; // too left
+    if ( win_width < 416 ) { target.style.top = win_height / 1.25 + window.pageYOffset +"px"; target.style.left = win_width / 6.8 + window.pageXOffset + "px"; } // for mobile portrait orientation
+    if ( by_drect.bottom > cell_bottom ) target.style.top = ( window.pageYOffset + cell_bottom )+"px"; // too low
 }
