@@ -276,6 +276,7 @@ function reset( grps, list, svg ) {
     for ( const pop of document.querySelectorAll( ".popup_div" ) ) pop.classList.add( "hidden" );
 }
 
+function resetViewBox( svg ) { svg.setAttribute( "viewBox", svg._ori_viewbox ); }
 
 
 // MISC
