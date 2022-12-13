@@ -2,6 +2,10 @@
 
 Embed [Swissbiopics](https://www.swissbiopics.org/) in Quarto documents.
 
+
+Note: this works but is still in alpha state.
+
+
 ## Installing
 
 ```bash
@@ -22,8 +26,6 @@ You can use the `{{< sbp >}}` shortcode to add a SwissBioPics image to your quar
 
 {{<  sbp Trypanosoma >}}
 ```
-
-
 
 
 
