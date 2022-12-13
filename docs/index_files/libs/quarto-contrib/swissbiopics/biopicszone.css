@@ -1,0 +1,894 @@
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, Tahoma, sans-serif;
+    font-size: 15px;
+    margin: auto 0;
+    color: #303030;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+body, div.core {
+    background: white;
+}
+
+td,ul,ol,p,fieldset {
+    font-size: 14px  !important;
+}
+
+fieldset {
+    border: 1px solid #d8d8d8;
+    border-radius: 10px;
+    line-height: 1.5em;
+    margin-bottom: 0.5em;
+    padding: 0.1em 0.5em 0.2em;
+}
+
+td,ul,ol,p {
+    line-height: 1.35em !important;
+}
+
+h1 {
+    font-size: 30px !important;
+    margin-top: 10px;
+}
+h1.ctitle {
+    font-size: 26px !important;
+    border-bottom: 1px dotted #BBB;
+    color: #666;
+    margin-bottom: 0;
+}
+
+h2 {
+    font-size: 22px !important;
+}
+
+h3 {
+    font-size: 16px !important;
+}
+
+h4 {
+    font-size: 14px !important;
+}
+
+h1.root,h2.root,#header,div#tab_bar,div#tab_bar ul,div.core,div.main,div.sidebar,p.note,div.footer,div.context,div.auto_complete ul,div.auto_complete ul li,div.auto_complete ul strong.highlight {
+    margin: 0;
+}
+
+h1.root {
+    padding: 1em 0 0.3em 0;
+}
+
+h2.root {
+    color: blue;
+}
+
+h4, h3, div.matches h3 {
+    margin-bottom: 0.2em !important;
+}
+
+/*  #container {
+	min-height: calc(100vh - 40px);
+} not used anymore */
+
+div.page {
+    margin: 0 auto;
+    margin-bottom: 1.5em;
+    color: #303030;
+    width: 100%;
+    display: flex;
+}
+
+div.page .side {
+    width: 20px;
+    min-width: 20px;
+    background: linear-gradient(180deg, #F0F6FA, #FFF );
+}
+
+div.rpage {
+    margin: 0 auto;
+    margin-bottom: 1.5em;
+    color: #303030;
+    width: 90%;
+}
+div.rpage div.rcount {
+    padding: 0.8em 0;
+}
+
+@media screen and (max-width: 820px) { /* iphone X: max 812px (width landscape) ... */
+    #search input[type="text"] {
+        width: 8em;
+    }
+    #h1 span {
+        font-size: 22px;
+    }
+}
+
+div.page,#header,div#tab_bar,p.note,#search,div.auto_complete ul,div.auto_complete ul strong.highlight {
+    padding: 0;
+}
+
+table {
+    width: 100%;
+}
+
+#header {
+    background: linear-gradient(0deg, #99999F, #88888E );
+    border-bottom: 0px solid #dadada;
+    min-height: 60px;
+    padding: 0;
+    margin: 0;
+    min-width: 40em;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+@media screen and (max-width: 820px) {
+    #header {
+        min-width: 340px;
+    }
+}
+
+#header,#h2 {
+    color: white;
+}
+
+
+#h1 {
+    display: flex;
+    flex-flow: row wrap;
+    align-self: center;
+    font-size: 25px;
+    font-weight: bold;
+    letter-spacing: 0.01em;
+    left: 7px;
+    bottom: 2px;
+    position: relative;
+}
+#sitename {
+    display: inline-flex;
+    align-self: center;
+    margin-bottom: 8px;
+    color: #fff;
+    padding-left: 10px;
+    font-style: italic;
+    text-shadow: 2px 2px 2px #444;
+}
+#h1 a {
+    position: relative;
+    top: 5px;
+}
+#search {
+    padding-left: 30px;
+    align-self: center;
+    width: calc(100vw - 580px);
+    min-width: 230px;
+}
+#search form {
+    margin: 0;
+}
+#search form input.suggest {
+    width: calc(100% - 140px);
+    min-width: 100px;
+}
+
+#h2 {
+    display: flex;
+    align-self: center;
+    right: 7px;
+    top: 7px;
+    position: absolute;
+}
+
+.update,table.viri_list {
+    text-align: right;
+    z-index: 1;
+}
+
+#h2 a {
+    color: #888;
+}
+
+#h2,div.context {
+    font-size: small;
+}
+
+div.sidebar {
+    float: right;
+}
+
+#h2 label,div.sidebar,span.protein,#search {
+    text-align: left;
+}
+
+#menu {
+    display: flex;
+    position: relative;
+    align-self: center;
+    top: 2px;
+    padding-left: 50px;
+    color: #999;
+    font-size: 18px;
+}
+#menu a {
+    color: #EEE;
+    font-size: 18px;
+}
+
+@media screen and (max-width: 820px) {
+    #menu {
+        padding-left: 10px;
+    }
+    #search {
+        padding-left: 10px;
+    }
+}
+
+.sidebar fieldset legend {
+    color: #75ac12;
+}
+
+#h2 label {
+    font-size: x-small;
+}
+
+#announce {
+    color: #FE6;
+    position: absolute;
+    top: 53px;
+    padding-left: 10px;
+    width: 100%;
+    width: calc( 100% - 10px );
+    white-space: nowrap;
+    background-color: black;
+}
+
+#sib_footer {
+    clear: both !important;
+    position: relative;
+    background-color: #D5E8E8;
+    color: #666;
+    font-size: 11px;
+    font-weight: normal;
+    height: 38px;
+    letter-spacing: 1px;
+    z-index: 2;
+    width: 100%;
+}
+
+/* sib_footer not used anymore
+
+#sib_footer_content {
+    padding: 12px 0 0 26px;
+    position: relative;
+}
+
+#sib_footer a {
+    color: #555;
+    text-decoration: none;
+}
+
+#sib_footer_right {
+    position: absolute;
+    right: 18px;
+    text-align: right;
+    top: 12px;
+    width: 400px;
+}
+
+#sib_footer_right a {
+    padding-left: 10px;
+}
+
+*/
+
+/* tabs */
+
+div#tab_bar {
+    background: #d6d6d6;
+    height: 22px;
+    overflow: auto;
+    text-overflow: ellipsis;
+}
+
+div#tab_bar,div#t7,div#t6,div#t5,iv#t4,div#t3,div#t2,div#t1,div#t0,.hidden {
+    display: none;
+}
+
+div#tab_bar.final,body#tab7 div#t7,body#tab6 div#t6,body#tab5 div#t5,body#tab4 div#t4,body#tab3 div#t3,body#tab2 div#t2,body#tab1 div#t1,body#tab0 div#t0,body#taball div#t7,body#taball div#t6,body#taball div#t5,body#taball div#t4,body#taball div#t3,body#taball div#t2,body#taball div#t1,body#taball div#t0,span.protein {
+    display: block;
+}
+
+div#tab_bar.final {
+    width:100%;
+    min-width:40em;
+}
+
+div#tab_bar ul,div.host ul,div.auto_complete ul {
+    list-style-type: none;
+}
+
+div#tab_bar ul {
+    display: table;
+    padding: 0 4px;
+    height: 100%;
+}
+
+div#tab_bar ul,fieldset legend {
+    font-size: 16px !important;
+}
+
+body#tab7 li.tab7,body#tab6 li.tab6,body#tab5 li.tab5,body#tab4 li.tab4,body#tab3 li.tab3,body#tab2 li.tab2,body#tab1 li.tab1,body#tab0 li.tab0,body#taball li.tab0 {
+    background: #fff;
+    color: #000;
+}
+
+div#tab_bar ul li {
+    list-style: none outside none;
+    margin-right: 0.245em;
+    padding: 0 1em;
+    min-width: 6em;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    cursor: pointer;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+div#tab_bar ul li,div.main,span.protein {
+    float: left;
+}
+
+div#tab_bar ul li,a img {
+    border: 0;
+}
+
+div#tab_bar ul li,.uc,.token_light {
+    color: #666;
+}
+
+:root div#tab_bar ul li {
+    display: table-cell;
+    float: none;
+}
+
+li#tab_focus {
+    color: #000 !important;
+}
+
+body#tab7 div#t7,body#tab6 div#t6,body#tab5 div#t5,body#tab4 div#t4,body#tab3 div#t3,body#tab2 div#t2,body#tab1 div#t1,body#tab0 div#t0,div.matches,div.footer {
+    clear: both;
+}
+
+div#t7,div#t6,div#t5,div#t4,div#t3,div#t2,div#t1,div#t0 {
+}
+
+/* search */
+input[type="submit"] {
+    background-color: #F0F0F0;
+    border: 1px solid #88A;
+    border-radius: 4px;
+}
+
+#search input[type="submit"] {
+    background-color: #888;
+    border: 2px solid #777;
+    color: white;
+}
+
+input[type="text"], textarea {
+    border: 2px solid #AAA;
+    border-radius: 6px;
+    padding: 2px;
+}
+
+/* page */
+
+div.core {
+    padding: 0.4em;
+    width:100%;
+}
+
+div.core > table,div.blank {
+    clear: right;
+}
+
+form div,div.blank,div.protein_list {
+    padding: 0 !important;
+}
+
+div.main {
+    width: 100%;
+    text-align: justify;
+}
+
+div.main p {
+    text-align: justify;
+}
+
+div.main p, div.main ol, div.main ul {
+    font-family: Verdana, Geneva, "DejaVu Sans", Tahoma, Arial, sans-serif;
+}
+
+div.main,div.matches {
+    padding: 0.5em;
+}
+
+div.main img {
+    margin: 0;
+    border: 0 !important;
+}
+
+div.sidebar {
+    width: 18em;
+    padding: 0.2em !important;
+    float: right;
+}
+
+div.matches img {
+    vertical-align: bottom;
+}
+
+div.tooltip {
+    background-color: white;
+    position: fixed;
+    padding: 0.5em;
+    margin: 0;
+    z-index: 10001;
+    max-width: 720px;
+    text-align: justify;
+    left: 12em;
+    border: 2px solid #5da0e0;
+    border-radius: 6px;
+}
+
+p.note {
+    font-size: smaller;
+    color: #888;
+    clear: left;
+}
+
+p.note,div.host ul {
+    margin-left: 2em;
+}
+
+div.matches h3 {
+    padding-bottom: 0.2em;
+    border-bottom: 1px solid #d8d8d8;
+    line-height: 1.2em;
+}
+
+div.blank {
+    margin: 0 !important;
+}
+
+div.footer {
+    margin-top: 2em;
+    padding: 0.5em;
+    text-align: center;
+    font-size: small;
+    color: gray;
+}
+
+div.protein_list {
+    margin: 0.3em 0 0 0;
+    clear: left;
+}
+
+span.protein {
+    width: 12em;
+}
+
+span.truncated {
+    color: gray;
+}
+
+.light {
+    color: gray;
+}
+
+table {
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+table, td, th {
+    border: medium none;
+}
+
+th {
+    text-align: left;
+}
+
+table.catalog td {
+    font-size: 16px !important;
+    vertical-align: middle;
+}
+table.catalog td img {
+    vertical-align: middle;
+    width: 100px;
+    margin-right: 10px;
+}
+
+table.doc td {
+    font-size: 16px !important;
+    vertical-align: middle;
+    padding: 4px;
+    border: 1px dashed darkslategray;
+}
+
+td.list_kind {
+    color: #666;
+    width: 6%;
+}
+
+.update {
+    color: #eef;
+    font-size: 9px;
+}
+
+small {
+    text-align: left !important;
+    font-size: 12px;
+}
+
+.ref_strain {
+    font-size: 10px;
+    color: red;
+    font-weight: normal;
+}
+
+ul.menu1 {
+    list-style-type: none;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 0 0 0 0.5em;
+    line-height: 1.6em;
+    border-radius: 12px;
+}
+
+div.host ul {
+    padding-left: 0em;
+}
+
+.round {
+    border-radius: 10px;
+}
+
+fieldset {
+    border: 1px solid #d8d8d8;
+    padding: 0.1em 0.5em 0.2em 0.5em;
+    margin-bottom: 0.5em;
+    line-height: 1.5em;
+    border-radius: 10px;
+}
+
+pre,td.first {
+    background: #eee;
+}
+
+pre {
+    padding: 10px;
+    font-size: 11px;
+}
+
+.inj pre {
+    overflow: hidden;
+    color: #888;
+}
+
+.highlight {
+    background-color: #fffe22;
+}
+
+a {
+    color: #00f;
+    text-decoration: none !important;
+}
+
+a:visited {
+    color: #66f;
+}
+
+a:hover {
+    /*color:#fff*/;
+}
+
+#h1 a:hover {
+    background: none;
+}
+
+.weak {
+    color: #aaa;
+}
+
+td.list_main {
+    width: 70%;
+}
+
+.notice {
+    color: red !important;
+}
+
+.notice2 {
+    color: #f80 !important;
+    font-weight: bold;
+}
+
+.notice3 {
+    color: #0F0 !important;
+}
+
+.notice4 {
+    color: #8b8 !important;
+}
+
+/* autocomplete */
+
+ul.suggest {
+    position: absolute;
+    background-color: #F7F7F7;
+    color: black!important;
+    font-size: 16px!important;
+    font-family: Arial, sans-serif;
+    font-weight: lighter;
+    border: 1px solid #AAA;
+    box-shadow: 3px 3px 4px #999;
+    border-radius: 5px;
+    min-width: 24rem;
+    margin: 0;
+    padding: 0;
+    z-index: 3;
+    display: block;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+ul.suggest li {
+    margin: 2px 0 0 0;
+    overflow: auto;
+}
+
+input.suggest {
+    font-size: 16px;
+    padding: 2px;
+}
+
+li.suggest {
+    list-style: none;
+    padding: 0.1em 0.1em 0.1em 0.4em;
+}
+
+li.suggest_focus {
+    /* not use li.suggest:hover as js controls everything */
+    list-style: none;
+    padding: 0.1em 0.1em 0.1em 0.4em;
+    margin: 0;
+    background-color: #FFA;
+    border-radius: 4px;
+}
+
+.loc a {
+}
+
+
+/* 4 cell view pages */
+
+h1.ctitle { color: #356; }
+h1 img {
+  position: relative;
+  bottom: -3px;
+  left: 8px;
+}
+.sbp {
+  display: flex;
+  align-items: flex-start;
+}
+.lookedAt {
+  background-color:#ADF !important;
+}
+svg .lookedAt {
+  stroke:#88D !important; /* p.s. inside svg only as causes nervous vertical scroll bar problem on chrome if on div, ul */
+  fill:#8CF !important;
+  fill-opacity: .25 !important;
+}
+.selected {
+  background-color:orange !important;
+}
+svg .selected {
+  stroke:orange !important;
+  fill:#E76 !important;
+  fill-opacity: .55 !important;
+}
+text.subcell_description { visibility: hidden }
+text.subcell_name { fill: #888 }
+g#sib_copyright text { font-size: 16px; fill: #666 }
+
+div.cinfo {
+  position: absolute;
+  top: inherit;
+  font-size: 18px;
+  max-width: calc( 100% - 16.5rem - 10px )
+}
+div.cinfo p {
+  font-size: inherit !important;
+  margin: 0;
+}
+
+div.sbp {
+}
+div#cell {
+  width: calc( 100% - 16.5rem - 10px );
+  margin: 0;
+}
+svg {
+  display: block;
+  width:  100%;
+  height: 100%;
+  max-height: calc( 100vh - 10rem );
+}
+div#locations {
+  border: 1px solid #FEFEFE;
+  border-radius: 6px;
+  padding: 4px;
+  margin: 0 0 0 6px;
+  width: 16rem;
+  overflow: auto;
+  max-height: calc( 100vh - 10rem );
+}
+div#locations ul {
+ list-style-type: none;
+ list-style: none;
+ padding: 0 0 0 2px;
+ margin: 0;
+ line-height: 1.25em !important;
+}
+div#locations a {
+   color: #444 !important;
+}
+div#locations li   {
+  border-radius: 4px;
+  padding-left: 3px;
+}
+div#locations li a { font-style:oblique }
+.subcellular_location { display: initial !important}
+
+div.popup_div {
+	background-color: #222;
+	position: absolute;
+    width: 50%;
+    max-width: min( 50%, 1024px ); /* 1024px */
+	z-index:10000;
+	border:none;
+	border-radius: 8px;
+    color: white;
+    padding: 4px 10px 8px 10px;
+    font-size: 13.6px;
+    line-height: 17px;
+    text-align: justify;
+}
+div.popup_name {
+        font-weight: bold;
+        font-size: 15px;
+        color: orange;
+        margin-bottom: 2px;
+}
+div.popup_name img {
+    width: 15px;
+    padding-left: 10px;
+}
+
+.side a.download {
+    position: relative;
+    top: 26px;
+    left: 2px;
+}
+a.download img {
+    max-width: 18px;
+}
+
+@supports (max-width: min( 50%, 1024px )) {
+    div.popup_div { width: max-content; }
+}
+
+@media screen and (max-width: 1023px) { /* <= ipad landscape */
+    body { overflow-y: auto; }
+    #header { position: static; }
+    div#locations { width: 12rem; max-height: 100vh; }
+    svg { max-height: 100vh; }
+    div#cell { width: calc( 100% - 12.5rem - 10px ); }
+    div.popup_div {
+        width: 50%; /*  against ?font scaling bug? in iPhone Safari landscape */
+        max-width: calc( 100% - 13.5rem - 10px );
+    }
+}
+
+@media screen and (max-width: 415px) { /* iphone X: max 375px, 8plus 414px (width portrait) ... */
+    div#cell { width: 100%; max-height: 50vh; }
+    .sbp { display: block; }
+    svg { max-height: 50vh; }
+    div#locations { width: 100%; max-height: 50vh; }
+    div.popup_div { width: 70%; max-width: 800px; }
+    div.cinfo { top: 9rem; max-width: 100%; }
+}
+
+/* sbp home / card view*/
+div.inj svg { height: 260px; width: 260px }
+.cicon g#sib_copyright text { font-size: 16px; fill: #666 }
+.cicon g#Text { display: none }
+.cicon #sib_copyright { display: none }
+.cicon #sib_logo { display: none }
+div.inj .subcellular_location { display: initial !important }
+div.igrid {
+  margin: auto;
+  width: 98%;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: baseline;
+  justify-content: center;
+}
+div.cicon {
+  margin: 8px 12px;
+  text-align: center;
+  border-radius: 10px;
+  border: 1px dotted #ddd;
+}
+div.cicon:hover {
+  box-shadow: 0px 2px 12px #333;
+}
+div.cicon img {
+  align-self: center;
+}
+div.cicon a {
+  color: #B8C8C8;
+}
+div.name {
+  width: 280px;
+  color: white;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: 3px 0 1px 0;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+}
+div.cicon span {
+  color: #356  !important;
+  display: inline-block;
+  vertical-align: bottom;
+  font-size: 15px;
+}
+div.inj {
+  height: 260px;
+  width: 280px;
+}
+
+
+/* youtube icons */
+
+div.tutorials {
+    margin: auto;
+    margin-top: 80px;
+    width: 98%;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: baseline;
+    justify-content: center;
+}
+
+a.youtube {
+    position: relative;
+}
+
+a.youtube svg {
+    height: 30pt;
+    width: 30pt;
+    position: absolute;
+    top: -120px;
+    left: calc(50% - 15pt);
+}
+
+a.youtube img {
+    width: 300px;
+    height: auto;
+}
