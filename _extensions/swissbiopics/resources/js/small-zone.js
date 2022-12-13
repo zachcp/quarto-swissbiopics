@@ -14,7 +14,7 @@ function getCellName( svg, iname ) {
 }
 
 
-function initPage() {
+function initPage(id) {
     // const target  = div.getAttribute( "data-target" );
     const targetSVGElems = "path, circle, ellipse, polygon, rect, polyline, line";
     const hiddenSLs      = [ 'SL0198', 'SL0457', 'SL0458' ]; // list of sls hidden when not selected / mouse-over-ed
@@ -22,7 +22,7 @@ function initPage() {
     const holder         = document.querySelector( ".sbp" ); // holder/target: div.sbp
 
     // luse in global context
-    svg = document.querySelector( "#cell svg" );
+    svg = document.querySelector( " #cell svg" );
     // const svgname = getCellName( svg, iname );
     const title0  = document.querySelector( "h1.ctitle" );
     const title   = title0 ? title0 : document.createElement( "h1" ); // if not already there create h1 title

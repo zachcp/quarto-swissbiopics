@@ -4,21 +4,23 @@ filters:
   - swissbiopics
 ---
 
-## Heading
 
-This filter adds formatting to heading text.
-
-## SBP
+## Swissbiopics
 
 
+### Animal Cell Cytosol
 
 {{< sbp Animal_cells highlight=cytosol >}}
 
 
+### Animal Cell Cytosol
+
+{{< sbp Animal_cells highlight=cytosol >}}
+
 
 ## SBP Full
 
-<!-- {{< sbp-full Animal_cells >}} -->
+{{< sbp-full Animal_cells >}}
 
 
 

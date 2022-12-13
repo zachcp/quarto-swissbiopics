@@ -46,64 +46,22 @@ function getfilecontent(filename)
   return svg_string
 end
 
+function loadDeps() 
+  quarto.doc.add_html_dependency({
+    name = 'swissbiopics',
+    scripts = {'resources/js/small-zone.js'}, -- this will call trouble if there are other sbp shortcodes on the page
+    stylesheets = {'resources/css/biopicszone.css'}
+  })
+end
 
 -- Core Function -----------------------------------
 
 
 return {
 
-  ['sbp-full'] = function(args) 
-
-    quarto.log.output("i'm in  full!")
-    quarto.doc.add_html_dependency({
-      name = 'swissbiopics',
-      scripts = {'resources/js/small-zone.js' },
-      stylesheets = {'resources/css/biopicszone.css'}
-    })
-
-
-    -- todo check valid filename
-    local filename = args[1][1]
-    filename = pandoc.utils.stringify(filename)
-
-    -- load svg as text
-    local svg_content = getfilecontent(filename)
-
-    -- two div layers required for the SBP JS to work
-    local wrapped = f(
-      [[
-        <div class="sbp" data-name="${filename}.svg"> 
-          <div id="cell"> ${content} </div>
-        </div>
-  
-        <script>
-          document.addEventListener( "DOMContentLoaded",
-              function() {
-                  document.removeEventListener( "DOMContentLoaded", arguments.callee, false);
-                  // initCardsView();
-                  initPage();
-              },
-              false
-          );
-        </script>
-      ]],
-      {filename=filename, content=svg_content})
-
-
-    return pandoc.RawBlock(
-      'html', wrapped)
-  end,
-  
   ['sbp'] = function(args, kwargs) 
 
-        quarto.log.output("i'm in  sbp!")
-        quarto.log.output(kwargs)
-
-        quarto.doc.add_html_dependency({
-          name = 'swissbiopics',
-          stylesheets = {'resources/css/biopicszone.css'}
-        })
-    
+        loadDeps() 
     
         -- todo check valid filename
         local filename = args[1][1]
@@ -111,11 +69,10 @@ return {
     
         -- load svg as text
         local svg_content = getfilecontent(filename)
-    
+
         local highlight = pandoc.utils.stringify(kwargs['highlight'][1])
         quarto.log.output(kwargs)
         quarto.log.output(highlight)
-
 
         local div_uuid = uuid()
         -- two div layers required for the SBP JS to work
@@ -124,13 +81,12 @@ return {
             <div id="cell"> ${content} </div>
           </div>
           <script>
-
             document.addEventListener( "DOMContentLoaded",
               function() {
-                  console.log("in da ting");
+                  // this needs to be run at the end of page load.
+                  // console.log("in da ting");
                   document.removeEventListener( "DOMContentLoaded", arguments.callee, false);
                   document.querySelector( "#${uid} #cell").style.width = '100%';
-      
                   subloc = "${highlight}";
                   subcellular = document.querySelectorAll("#${uid} #cell svg g .subcellular_location");
       
@@ -146,14 +102,50 @@ return {
               },
               false
             );
-
           </script>
         ]],
         {filename=filename, uid=div_uuid, content=svg_content, highlight=highlight})
-        
     
         return pandoc.RawBlock(
           'html', wrapped)    
 
-  end
+  end,
+
+
+  ['sbp-full'] = function(args) 
+    
+    loadDeps() 
+    
+    -- todo check valid filename
+    local filename = args[1][1]
+    filename = pandoc.utils.stringify(filename)
+
+    -- load svg as text
+    local svg_content = getfilecontent(filename)
+
+    local div_uuid = uuid()
+
+    -- two div layers required for the SBP JS to work
+    -- need to figure out how to 
+    local wrapped = f([[
+        <div class="sbp" id="${uid}" data-name="${filename}.svg"> 
+          <div id="cell"> ${content} </div>
+        </div>
+
+        <script>
+          document.addEventListener( "DOMContentLoaded",
+              function() {
+                  setTimeout(() => console.log("showing after one second"), 1000);
+                  document.removeEventListener( "DOMContentLoaded", arguments.callee, false);
+                  initPage();
+              },
+              false
+          );
+        </script>
+      ]], {filename=filename, content=svg_content, uid=div_uuid})
+
+    return pandoc.RawBlock(
+      'html', wrapped)
+  end,
+  
 }
