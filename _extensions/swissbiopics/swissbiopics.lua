@@ -77,7 +77,7 @@ return {
         local div_uuid = uuid()
         -- two div layers required for the SBP JS to work
         local wrapped = f([[
-          <div class="sbp" id="${uid}" data="${filename}.svg"> 
+          <div class="sbp" id="${uid}" data-name="${filename}.svg"> 
             <div id="cell"> ${content} </div>
           </div>
           <script>
@@ -91,9 +91,9 @@ return {
                   subcellular = document.querySelectorAll("#${uid} #cell svg g .subcellular_location");
       
                   for (const organelle of subcellular) {
-                      console.log(organelle);
+                      // console.log(organelle);
                       let subcell_name = organelle.querySelector("text.subcell_name").textContent;
-                      console.log(subcell_name);
+                      // console.log(subcell_name);
                       if (subcell_name.toLowerCase().includes(subloc.toLowerCase())) {
                           console.log("hurrah!");
                           organelle.querySelector("path").setAttribute("class", "coloured selected");
@@ -137,7 +137,7 @@ return {
               function() {
                   setTimeout(() => console.log("showing after one second"), 1000);
                   document.removeEventListener( "DOMContentLoaded", arguments.callee, false);
-                  initPage();
+                  initPage("${uid}");
               },
               false
           );
