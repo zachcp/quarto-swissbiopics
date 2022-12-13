@@ -19,7 +19,7 @@ If you're using version control, you will want to check in this directory.
 
 You can use the `{{< sbp >}}` shortcode to add a SwissBioPics image to your quarto document. You will need to specify the name of one of the images which can be found in `_extensions/swissbiopics/resources/images`. For example:
 
-```qmd
+```md
 {{<  sbp Animal_cells >}}
 
 {{<  sbp Egg_cell >}}
@@ -29,7 +29,7 @@ You can use the `{{< sbp >}}` shortcode to add a SwissBioPics image to your quar
 
 
 
-## Example
+## Build
 
-Here is the source code for a minimal example: [example.qmd](example.qmd).
+Copy the `_extensions` directory to `docs` and build. 
 

@@ -11,36 +11,68 @@ toc: true
 
 ### Animal Cell: Cytosol
 
+```md
+{{{< sbp Animal_cells highlight=cytosol >}}}
+```
+
 {{< sbp Animal_cells highlight=cytosol >}}
 
 
+
 ### Animal Egg Cell: Peullucida
+
+```md
+{{{< sbp Egg_Cell highlight=pellucida >}}}
+```
+
 
 {{< sbp Egg_Cell highlight=pellucida >}}
 
 
 ### Eukaryota Cell Cytosol: Spore
 
+```md
+{{{< sbp Eukaryota_cells highlight=spore >}}}
+```
+
+
 {{< sbp Eukaryota_cells highlight=spore >}}
 
 
 ### Trypanosoma Cell: Flagellum
+
+```md
+{{{< sbp Trypanosoma highlight=flagellum >}}}
+```
 
 {{< sbp Trypanosoma highlight=flagellum >}}
 
 
 ### Fungal Cell: Nucleus
 
+```md
+{{{< sbp Fungal_cells highlight=nucleus >}}}
+```
+
 {{< sbp Fungal_cells highlight=nucleus >}}
 
 
 ### Coccus Cell: Wall
+
+```md
+{{{< sbp Bacteria2M_coccus highlight=wall >}}}
+```
+
 
 {{< sbp Bacteria2M_coccus highlight=wall >}}
 
 
 
 ## SBP Full
+
+```md
+{{{< sbp-full Animal_cells >}}}
+```
 
 {{< sbp-full Animal_cells >}}
 
