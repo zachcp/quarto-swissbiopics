@@ -49,9 +49,12 @@ end
 
 -- Core Function -----------------------------------
 
-return {
-  ['sbp-full'] = function(args, kwargs, meta) 
 
+return {
+
+  ['sbp-full'] = function(args) 
+
+    quarto.log.output("i'm in  full!")
     quarto.doc.add_html_dependency({
       name = 'swissbiopics',
       scripts = {'resources/js/small-zone.js' },
@@ -68,7 +71,22 @@ return {
 
     -- two div layers required for the SBP JS to work
     local wrapped = f(
-      "<div class=\"sbp\" data-name=\"${filename}.svg\"> <div id=\"cell\"> ${content} </div></div>", 
+      [[
+        <div class="sbp" data-name="${filename}.svg"> 
+          <div id="cell"> ${content} </div>
+        </div>
+  
+        <script>
+          document.addEventListener( "DOMContentLoaded",
+              function() {
+                  document.removeEventListener( "DOMContentLoaded", arguments.callee, false);
+                  // initCardsView();
+                  initPage();
+              },
+              false
+          );
+        </script>
+      ]],
       {filename=filename, content=svg_content})
 
 
@@ -76,11 +94,13 @@ return {
       'html', wrapped)
   end,
   
-  ['sbp'] = function(args, kwargs, meta) 
+  ['sbp'] = function(args, kwargs) 
+
+        quarto.log.output("i'm in  sbp!")
+        quarto.log.output(kwargs)
 
         quarto.doc.add_html_dependency({
           name = 'swissbiopics',
-          scripts = {'resources/js/small-zone.js' },
           stylesheets = {'resources/css/biopicszone.css'}
         })
     
@@ -92,29 +112,33 @@ return {
         -- load svg as text
         local svg_content = getfilecontent(filename)
     
+        local highlight = pandoc.utils.stringify(kwargs['highlight'][1])
         quarto.log.output(kwargs)
+        quarto.log.output(highlight)
+
 
         local div_uuid = uuid()
         -- two div layers required for the SBP JS to work
         local wrapped = f([[
-          <div class="sbp" id="${uid}" data-name="${filename}.svg"> 
+          <div class="sbp" id="${uid}" data="${filename}.svg"> 
             <div id="cell"> ${content} </div>
           </div>
           <script>
 
-            document.addEventListener( "DOMContentLoaded2",
+            document.addEventListener( "DOMContentLoaded",
               function() {
-                 
-                  document.removeEventListener( "DOMContentLoaded2", arguments.callee, false);
+                  console.log("in da ting");
+                  document.removeEventListener( "DOMContentLoaded", arguments.callee, false);
                   document.querySelector( "#${uid} #cell").style.width = '100%';
-                  document.querySelector( "#${uid} #locations").remove();
       
-                  const subcellular = document.querySelectorAll("#${uid} #cell svg g .subcellular_location");
+                  subloc = "${highlight}";
+                  subcellular = document.querySelectorAll("#${uid} #cell svg g .subcellular_location");
       
                   for (const organelle of subcellular) {
                       console.log(organelle);
                       let subcell_name = organelle.querySelector("text.subcell_name").textContent;
-                      if (subcell_name.includes(subloc)) {
+                      console.log(subcell_name);
+                      if (subcell_name.toLowerCase().includes(subloc.toLowerCase())) {
                           console.log("hurrah!");
                           organelle.querySelector("path").setAttribute("class", "coloured selected");
                       }
@@ -123,11 +147,9 @@ return {
               false
             );
 
-        
-
           </script>
         ]],
-        {filename=filename, uid=div_uuid, content=svg_content})
+        {filename=filename, uid=div_uuid, content=svg_content, highlight=highlight})
         
     
         return pandoc.RawBlock(

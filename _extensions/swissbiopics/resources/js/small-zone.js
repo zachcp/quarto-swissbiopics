@@ -1,18 +1,6 @@
-document.addEventListener( "DOMContentLoaded",
-    function() {
-        document.removeEventListener( "DOMContentLoaded", arguments.callee, false);
-        // initCardsView();
-        initPage();
-    },
-    false
-);
-
-
-
 // const target  = div.getAttribute( "data-target" );
 const targetSVGElems = "path, circle, ellipse, polygon, rect, polyline, line";
 const hiddenSLs      = [ 'SL0198', 'SL0457', 'SL0458' ]; // list of sls hidden when not selected / mouse-over-ed
-
 
 
 // L73
@@ -24,8 +12,6 @@ function getCellName( svg, iname ) {
     const svgname_h = svg.querySelector( ":scope > text[property=name]" );// fetch img name from svg
     return svgname_h ? svgname_h.textContent : ( iname ? iname.replace( /\.svg$/, "" ).replace( /_/g, " " ) : "" );
 }
-
-
 
 
 function initPage() {
