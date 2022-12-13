@@ -1,5 +1,5 @@
 ---
-title: "Swissbiopics Example"
+title: "Swissbiopics Examples"
 filters:
   - swissbiopics
 ---
@@ -8,14 +8,35 @@ filters:
 ## Swissbiopics
 
 
-### Animal Cell Cytosol
+### Animal Cell: Cytosol
 
 {{< sbp Animal_cells highlight=cytosol >}}
 
 
-### Animal Cell Cytosol
+### Animal Egg Cell: Peullucida
 
-{{< sbp Animal_cells highlight=cytosol >}}
+{{< sbp Egg_Cell highlight=pellucida >}}
+
+
+### Eukaryota Cell Cytosol: Spore
+
+{{< sbp Eukaryota_cells highlight=spore >}}
+
+
+### Trypanosoma Cell: Flagellum
+
+{{< sbp Trypanosoma highlight=flagellum >}}
+
+
+### Fungal Cell: Nucleus
+
+{{< sbp Fungal_cells highlight=nucleus >}}
+
+
+### Coccus Cell: Wall
+
+{{< sbp Bacteria2M_coccus highlight=wall >}}
+
 
 
 ## SBP Full
