@@ -60,74 +60,75 @@ end
 return {
 
   ['sbp'] = function(args, kwargs) 
+    if quarto.doc.isFormat("html:js") then
+      loadDeps() 
+  
+      -- todo check valid filename
+      local filename = args[1][1]
+      filename = pandoc.utils.stringify(filename)
+  
+      -- load svg as text
+      local svg_content = getfilecontent(filename)
 
-        loadDeps() 
+      local highlight = pandoc.utils.stringify(kwargs['highlight'][1])
+      quarto.log.output(kwargs)
+      quarto.log.output(highlight)
+
+      local div_uuid = uuid()
+      -- two div layers required for the SBP JS to work
+      local wrapped = f([[
+        <div class="sbp" id="${uid}" data-name="${filename}.svg"> 
+          <div id="cell"> ${content} </div>
+        </div>
+        <script>
+          document.addEventListener( "DOMContentLoaded",
+            function() {
+                // this needs to be run at the end of page load.
+                // console.log("in da ting");
+                document.removeEventListener( "DOMContentLoaded", arguments.callee, false);
+                document.querySelector( "#${uid} #cell").style.width = '100%';
+                subloc = "${highlight}";
+                subcellular = document.querySelectorAll("#${uid} #cell svg g .subcellular_location");
     
-        -- todo check valid filename
-        local filename = args[1][1]
-        filename = pandoc.utils.stringify(filename)
-    
-        -- load svg as text
-        local svg_content = getfilecontent(filename)
-
-        local highlight = pandoc.utils.stringify(kwargs['highlight'][1])
-        quarto.log.output(kwargs)
-        quarto.log.output(highlight)
-
-        local div_uuid = uuid()
-        -- two div layers required for the SBP JS to work
-        local wrapped = f([[
-          <div class="sbp" id="${uid}" data-name="${filename}.svg"> 
-            <div id="cell"> ${content} </div>
-          </div>
-          <script>
-            document.addEventListener( "DOMContentLoaded",
-              function() {
-                  // this needs to be run at the end of page load.
-                  // console.log("in da ting");
-                  document.removeEventListener( "DOMContentLoaded", arguments.callee, false);
-                  document.querySelector( "#${uid} #cell").style.width = '100%';
-                  subloc = "${highlight}";
-                  subcellular = document.querySelectorAll("#${uid} #cell svg g .subcellular_location");
-      
-                  for (const organelle of subcellular) {
-                      // console.log(organelle);
-                      let subcell_name = organelle.querySelector("text.subcell_name").textContent;
-                      // console.log(subcell_name);
-                      if (subcell_name.toLowerCase().includes(subloc.toLowerCase())) {
-                          console.log("hurrah!");
-                          organelle.querySelector("path").setAttribute("class", "coloured selected");
-                      }
-                  }
-              },
-              false
-            );
-          </script>
-        ]],
-        {filename=filename, uid=div_uuid, content=svg_content, highlight=highlight})
-    
-        return pandoc.RawBlock(
-          'html', wrapped)    
-
+                for (const organelle of subcellular) {
+                    // console.log(organelle);
+                    let subcell_name = organelle.querySelector("text.subcell_name").textContent;
+                    // console.log(subcell_name);
+                    if (subcell_name.toLowerCase().includes(subloc.toLowerCase())) {
+                        console.log("hurrah!");
+                        organelle.querySelector("path").setAttribute("class", "coloured selected");
+                    }
+                }
+            },
+            false
+          );
+        </script>
+      ]],
+      {filename=filename, uid=div_uuid, content=svg_content, highlight=highlight})
+  
+      return pandoc.RawBlock('html', wrapped)    
+    else
+      return pandoc.Null()
+    end
   end,
 
 
   ['sbp-full'] = function(args) 
-    
-    loadDeps() 
-    
-    -- todo check valid filename
-    local filename = args[1][1]
-    filename = pandoc.utils.stringify(filename)
+    if quarto.doc.isFormat("html:js") then
+      loadDeps() 
+      
+      -- todo check valid filename
+      local filename = args[1][1]
+      filename = pandoc.utils.stringify(filename)
 
-    -- load svg as text
-    local svg_content = getfilecontent(filename)
+      -- load svg as text
+      local svg_content = getfilecontent(filename)
 
-    local div_uuid = uuid()
+      local div_uuid = uuid()
 
-    -- two div layers required for the SBP JS to work
-    -- need to figure out how to 
-    local wrapped = f([[
+      -- two div layers required for the SBP JS to work
+      -- need to figure out how to 
+      local wrapped = f([[
         <div class="sbp" id="${uid}" data-name="${filename}.svg"> 
           <div id="cell"> ${content} </div>
         </div>
@@ -144,8 +145,9 @@ return {
         </script>
       ]], {filename=filename, content=svg_content, uid=div_uuid})
 
-    return pandoc.RawBlock(
-      'html', wrapped)
+      return pandoc.RawBlock('html', wrapped)
+    else
+      return pandoc.Null()
+    end
   end,
-  
 }
