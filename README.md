@@ -3,7 +3,9 @@
 Embed [Swissbiopics](https://www.swissbiopics.org/) in Quarto documents.
 
 
-Note: this works but is still in alpha state.
+**Note: this works but is still in alpha state.**
+
+**Note: this is only available for html formats.**
 
 
 ## Installing
